@@ -24,18 +24,14 @@ services:
     networks:
       - result-tier
       - back-tier
-    container_name: 'docker_db'
 
   poll:
     build: ./poll
     restart: always
-    environment:
-      FLASK_ENV: dev
     ports:
       - "5000:80"
     networks:
       - poll-tier
-    container_name: 'docker_poll'
 
 volumes:
   db-data:
