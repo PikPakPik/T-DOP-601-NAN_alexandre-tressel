@@ -42,6 +42,16 @@ services:
     networks:
       - back-tier
 
+  result:
+    build: ./result
+    restart: always
+    environment:
+      postgres_ip: db
+    ports:
+      - "5001:80"
+    networks:
+      - result-tier
+
 volumes:
   db-data:
 
