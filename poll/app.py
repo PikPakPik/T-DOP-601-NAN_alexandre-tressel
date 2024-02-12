@@ -9,6 +9,7 @@ option_a = os.getenv('OPTION_A', "Ansible")
 option_b = os.getenv('OPTION_B', "Chef")
 option_c = os.getenv('OPTION_C', "Puppet")
 option_d = os.getenv('OPTION_B', "SaltStack")
+redis = os.getenv('REDIS', "redis")
 hostname = socket.gethostname()
 
 app = Flask(__name__)
@@ -16,7 +17,7 @@ app = Flask(__name__)
 
 def get_redis():
     if not hasattr(g, 'redis'):
-        g.redis = Redis(host="127.0.0.1", db=0, socket_timeout=5)
+        g.redis = Redis(host=redis, db=0, socket_timeout=5)
     return g.redis
 
 
