@@ -24,6 +24,14 @@ services:
       - result-tier
       - back-tier
 
+  poll:
+    build: ./poll
+    restart: always
+    ports:
+      - "5000:80"
+    networks:
+      - poll-tier
+
 volumes:
   db-data:
 
