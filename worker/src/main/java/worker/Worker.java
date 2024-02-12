@@ -8,8 +8,8 @@ import org.json.JSONObject;
 class Worker {
   public static void main(String[] args) {
     try {
-        Jedis redis = connectToRedis("127.0.0.1");
-        Connection dbConn = connectToDB("127.0.0.1");
+        Jedis redis = connectToRedis(System.getenv("REDIS"));
+        Connection dbConn = connectToDB(System.getenv("DB"));
 
         System.err.println("Watching vote queue");
 
@@ -29,21 +29,14 @@ class Worker {
   }
 
   static void updateVote(Connection dbConn, String voterID, String vote) throws SQLException {
-    PreparedStatement insert = dbConn.prepareStatement(
-      "INSERT INTO votes (id, vote) VALUES (?, ?)");
-    insert.setString(1, voterID);
-    insert.setString(2, vote);
+    PreparedStatement insertOrUpdate = dbConn.prepareStatement(
+      "INSERT INTO votes (id, vote) VALUES (?, ?) ON CONFLICT (id) DO UPDATE SET vote = ?");
+    insertOrUpdate.setString(1, voterID);
+    insertOrUpdate.setString(2, vote);
+    insertOrUpdate.setString(3, vote);
 
-    try {
-      insert.executeUpdate();
-    } catch (SQLException e) {
-      PreparedStatement update = dbConn.prepareStatement(
-        "UPDATE votes SET vote = ? WHERE id = ?");
-      update.setString(1, vote);
-      update.setString(2, voterID);
-      update.executeUpdate();
-    }
-  }
+    insertOrUpdate.executeUpdate();
+}
 
   static Jedis connectToRedis(String host) {
     Jedis conn = new Jedis(host);
