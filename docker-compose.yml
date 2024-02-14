@@ -28,6 +28,8 @@ services:
   poll:
     build: ./poll
     restart: always
+    depends_on:
+      - db
     environment:
       REDIS: redis
       DB: db
@@ -39,6 +41,8 @@ services:
   result:
     build: ./result
     restart: always
+    depends_on:
+      - db
     environment:
       postgres_ip: db
     ports:
@@ -49,6 +53,8 @@ services:
   worker:
     build: ./worker
     restart: always
+    depends_on:
+      - db
     environment:
       REDIS: redis
       DB: db
