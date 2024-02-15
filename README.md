@@ -3,7 +3,7 @@
 Popeye est est un projet sur la conteneurisation d'une application web. Il s'agit d'une application de vote en temps réel. L'application est composée de 5 services :
 
 - **DB** : Service de base de données
-- **Pool**-UI : Service de l'interface utilisateur
+- **Pool** : Service de l'interface utilisateur
 - **Result** : Service de résultat
 - **Worker** : Service de travailleur
 - **Redis** : Service de cache
