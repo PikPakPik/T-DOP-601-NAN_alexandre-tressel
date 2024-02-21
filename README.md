@@ -12,7 +12,7 @@ Popeye est est un projet sur la conteneurisation d'une application web. Il s'agi
 
 ### Obligation
 
-Stack MERN ( MongoDB, Express, React, NodeJS)
+Application de vote en temps réel fournie dans le module
 
 ### Ports utilisés
 
@@ -39,4 +39,5 @@ docker compose up --build -d
 ```
 
 ## Screenshot
+
 ![7DpxzEFVyo67ZiYtmKYc2Bx6xcYskko3CnHW9jtH](https://github.com/EpitechMscProPromo2026/T-DOP-601-NAN_alexandre-tressel/assets/57991630/4bd61c6c-2438-44f4-af22-02a341c47699)

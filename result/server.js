@@ -12,7 +12,10 @@ var express = require("express"),
 io.set("transports", ["polling"]);
 
 var port = 80;
-var postgres_ip = process.env.postgres_ip;
+var postgres_ip = process.env.DB_HOST;
+var postgres_db = process.env.DB_NAME;
+var postgres_user = process.env.DB_USER;
+var postgres_password = process.env.DB_PASSWORD;
 
 io.sockets.on("connection", function (socket) {
   socket.emit("message", { text: "Welcome!" });
@@ -26,7 +29,7 @@ async.retry(
   { times: 1000, interval: 1000 },
   function (callback) {
     pg.connect(
-      `postgres://postgres:password@${postgres_ip}/postgres`,
+      `postgres://${postgres_user}:${postgres_password}@${postgres_ip}/${postgres_db}`,
       function (err, client, done) {
         if (err) {
           console.error("Waiting for db");
