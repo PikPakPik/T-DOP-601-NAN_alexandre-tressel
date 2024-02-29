@@ -12,10 +12,10 @@ var express = require("express"),
 io.set("transports", ["polling"]);
 
 var port = 80;
-var postgres_ip = process.env.DB_HOST;
-var postgres_db = process.env.DB_NAME;
-var postgres_user = process.env.DB_USER;
-var postgres_password = process.env.DB_PASSWORD;
+var postgres_ip = process.env.DB_HOST || "db";
+var postgres_db = process.env.DB_NAME || "postgres";
+var postgres_user = process.env.DB_USER || "postgres";
+var postgres_password = process.env.DB_PASSWORD || "password";
 
 io.sockets.on("connection", function (socket) {
   socket.emit("message", { text: "Welcome!" });
